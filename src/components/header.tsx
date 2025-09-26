@@ -1,0 +1,46 @@
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
+import Form from "react-bootstrap/Form";
+
+
+import { useEffect, useState } from "react";
+const Header = () => {
+  
+
+  const [mode, setMode] = useState("light");
+
+  useEffect(() => {
+    const body = document.querySelector("body");
+    if (body) {
+      body.setAttribute("data-bs-theme", mode);
+    }
+  }, [mode]);
+  return (
+    <Navbar className="bg-body-tertiary " data-bs-theme={mode}>
+      <Container>
+        <Navbar.Brand href="#home">Hoi Dan IT Redux</Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Form.Check // prettier-ignore
+            type="switch"
+           defaultChecked={mode == "light" ? false : true}
+            onChange={(e) =>
+              setMode(e.target.checked === true ? "dark" : "light")
+              
+            }
+            id="custom-switch"
+            label={
+              mode == "light" ? (
+                <Navbar.Text>Light mode</Navbar.Text>
+              ) : (
+                <Navbar.Text>Dark mode</Navbar.Text>
+              )
+            }
+          />
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
+
+export default Header;
